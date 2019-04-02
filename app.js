@@ -14,7 +14,7 @@ router.post('/uploadfile', async (ctx, next) => {
   
   const file = ctx.request.files.file; // 获取上传文件
   // 创建可读流
-  console.log(file.path)
+  console.log(file)
   const reader = fs.createReadStream(file.path);
   let filePath = path.join(__dirname, 'public/upload/') + `/${file.name}`;
   // 创建可写流
