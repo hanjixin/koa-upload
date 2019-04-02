@@ -1,13 +1,30 @@
 const Koa = require('koa');
 const app = new Koa();
 const Router = require('koa-router');
-
+const fs = require('fs')
+const path = require('path')
 const router  = new Router();
 const WhiteList = ['/login', '/register'];
 const koaBody = require('koa-body');
 const koaJsonLogger = require('koa-json-logger');
 const static = require('koa-static');
 const cors = require('koa2-cors');
+router.post('/uploadfile', async (ctx, next) => {
+  // 上传单个文件
+  const file = ctx.request.files.file; // 获取上传文件
+  // 创建可读流
+  const reader = fs.createReadStream(file.path);
+  let filePath = path.join(__dirname, 'public/upload/') + `/${file.name}`;
+  // 创建可写流
+  const upStream = fs.createWriteStream(filePath);
+  // 可读流通过管道写入可写流
+  reader.pipe(upStream);
+  return ctx.body = "上传成功！";
+});
+router.get('/', async (ctx, next) => {
+ 
+  return ctx.body = "快去上传文件吧！";
+});
 
 app.use(async (ctx, next) => {
   const start = Date.now();
