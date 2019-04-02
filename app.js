@@ -11,8 +11,10 @@ const static = require('koa-static');
 const cors = require('koa2-cors');
 router.post('/uploadfile', async (ctx, next) => {
   // 上传单个文件
+  
   const file = ctx.request.files.file; // 获取上传文件
   // 创建可读流
+  console.log(file.path)
   const reader = fs.createReadStream(file.path);
   let filePath = path.join(__dirname, 'public/upload/') + `/${file.name}`;
   // 创建可写流
