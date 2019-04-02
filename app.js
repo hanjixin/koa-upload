@@ -45,7 +45,8 @@ app.use(async (ctx, next) => {
 })
 
 app.use(cors())
-app.use(static(__dirname+'./public'));
+console.log(__dirname+'./public')
+app.use(static(__dirname+'/public'));
 
 app.use(koaJsonLogger());
 app.use(koaBody({
